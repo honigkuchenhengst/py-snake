@@ -71,7 +71,7 @@ def game_over():
 
     # creating a text surface on which text
     # will be drawn
-    game_over_surface = my_font.render('Your Score is : ' + str(score), True, red)
+    game_over_surface = my_font.render('Dein Score ist : ' + str(score), True, red)
 
     # create a rectangular object for the text
     # surface object

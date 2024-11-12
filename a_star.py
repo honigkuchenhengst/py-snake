@@ -1,6 +1,6 @@
 #Quelle für Basis: https://www.youtube.com/watch?app=desktop&v=qWbqHKzVLIw
 
-import heapq
+import heapq #Gibt über .pop immer kleinstes Element zurpück
 
 class Node:
     def __init__(self, position, cost, heuristic):
@@ -9,18 +9,19 @@ class Node:
         self.heuristic = heuristic
         self.parent = None
 
+    #definiert 'kleiner als' neu
     def __lt__(self, other):
         return (self.cost + self.heuristic) < (other.cost + other.heuristic)
 
 def astar_search(graph, start, goal):
     open_set = []
-    closed_set = set()
+    closed_set = set() #keine Duplikate & einfaches Überprüfen von .contains?
 
-    start_node = Node(start, 0, heuristic(start, goal))
+    start_node = Node(start, 0, heuristic1(start, goal))
     heapq.heappush(open_set, start_node)
 
-    while open_set:
-        current_node = heapq.heappop(open_set)
+    while open_set: #solange es unbesuchte Knoten im open_set gibt
+        current_node = heapq.heappop(open_set) #Knoten mit kleinstem f(n)
 
         if current_node.position == goal:
             # Path found, reconstruct and return it
@@ -35,7 +36,7 @@ def astar_search(graph, start, goal):
         for neighbor in graph[current_node.position]:
             if neighbor not in closed_set:
                 cost = current_node.cost + graph[current_node.position][neighbor]
-                heuristic_val = heuristic(neighbor, goal)
+                heuristic_val = heuristic1(neighbor, goal)
                 new_node = Node(neighbor, cost, heuristic_val)
                 new_node.parent = current_node
 
@@ -47,31 +48,30 @@ def astar_search(graph, start, goal):
 
     return None  # No path found
 
-def heuristic(node, goal):
+def heuristic1(node, goal):
     return abs(node[0] - goal[0]) + abs(node[1] - goal[1])
 
-def create_grid(width, depth, blocked_nodes):
+def create_grid(width, depth):
     graph = {}
     for i in range(width):
         for j in range(depth):
-            if (i, j) not in blocked_nodes:
-                neighbors = {}
-                if i > 0 and (i - 1, j) not in blocked_nodes:
-                    neighbors[(i - 1, j)] = 1
-                if j > 0 and (i, j - 1) not in blocked_nodes:
-                    neighbors[(i, j - 1)] = 1
-                if i < width - 1 and (i + 1, j) not in blocked_nodes:
-                    neighbors[(i + 1, j)] = 1
-                if j < depth - 1 and (i, j + 1) not in blocked_nodes:
-                    neighbors[(i, j + 1)] = 1
-                graph[(i, j)] = neighbors
+            neighbors = {}
+            if i > 0:
+                neighbors[(i - 1, j)] = 1  # Link to the left neighbor
+            if j > 0:
+                neighbors[(i, j - 1)] = 1  # Link to the upper neighbor
+            if i < width - 1:
+                neighbors[(i + 1, j)] = 1  # Link to the right neighbor
+            if j < depth - 1:
+                neighbors[(i, j + 1)] = 1  # Link to the lower neighbor
+            graph[(i, j)] = neighbors
     return graph
 
-# Create the graph with a 5x5 grid and specified blocked nodes
-width = 5
-depth = 5
-blocked_nodes = {(0, 4), (1, 2), (2, 1), (2, 2), (2, 3), (3, 2), (4, 0)}
-graph = create_grid(width, depth, blocked_nodes)
+
+# Create the graph with a widthxdepth grid
+width = 200
+depth = 200
+graph = create_grid(width, depth)
 
 # Example usage with the created graph
 start_node = (0, 0)

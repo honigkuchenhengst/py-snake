@@ -12,7 +12,7 @@ board = Board()
 snake = Snake()
 food = Food(board.SCREEN_WIDTH, board.SCREEN_HEIGHT)
 key_pressed = False
-snake_speed = 25
+snake_speed = 100
 
 pygame.init()
 # window
@@ -147,7 +147,7 @@ while True:
             board.score += 10
             food.food_spawn = False
         else:
-            snake.snake_body.pop()
+            food.update_space(snake.snake_body.pop(), snake.snake_position)
 
         if not food.food_spawn:
             food.spawn_food()

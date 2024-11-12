@@ -1,9 +1,8 @@
 import pygame
 import time
-import random
 
-from board import Board
-from food import Food
+from pygame.board import Board
+from pygame.food import Food
 from snake import Snake
 
 print("Wilkommen bei Sssnake!")
@@ -13,7 +12,7 @@ snake = Snake()
 food = Food(board.SCREEN_WIDTH,board.SCREEN_HEIGHT)
 key_pressed = False
 
-snake_speed = 25
+snake_speed = 20
 
 pygame.init()
 #window
@@ -73,7 +72,7 @@ def game_over():
     # quit the program
     quit()
 
-path ="RRRRDDDDLLLLUUUURRRRDDDDLLLLUUUURRRRDDDDLLLLUUUURRRRDDDDLLLLUUUURRRRDDDDLLLLUUUU"
+path ="RRRRDDDDLLLLUUUURRRRDDDDLLLLUUUURRRRDDDDLLLLUUUURRRRRRRDDDDLLLLUUUURRRRDDDDLLLLUUUU"
 pathindex = 0
 #game loop
 while True:

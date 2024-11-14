@@ -22,3 +22,31 @@ class board:
 
     def get_fruit_position(self):
         return self.fruit.get_position()
+
+    def copy(self):
+        copy = type(self)(self.length, self.width)
+        copy.fruit = self.fruit.copy()
+        copy.snake = self.snake.copy(copy.fruit)
+        return copy
+
+    def expand_board(self):
+        copies = []
+        n = 0
+        for i in range(4):
+            copies.append(self.copy())
+        if copies[n].snake.move("U",copies[n].fruit) == False:
+            copies.pop(n)
+            n -= 1
+        n += 1
+        if copies[n].snake.move("D",copies[n].fruit) == False:
+            copies.pop(n)
+            n -= 1
+        n += 1
+        if copies[n].snake.move("L",copies[n].fruit) == False:
+            copies.pop(n)
+            n -= 1
+        n += 1
+        if copies[n].snake.move("R",copies[n].fruit) == False:
+            copies.pop(n)
+            n -= 1
+        return copies

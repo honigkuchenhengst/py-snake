@@ -14,7 +14,10 @@ class fruit:
                 empty_space.append([i,j])
         for part in snake:
             empty_space.remove(part)
-        self.position = empty_space[rn.randint(0, len(empty_space)-1)]
+        if len(empty_space)!=0:
+            self.position = empty_space[rn.randint(0, len(empty_space)-1)]
+        else:
+            self.position=[-1,-1]
 
 
     def get_position(self):

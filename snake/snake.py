@@ -27,10 +27,11 @@ class snake:
         self.gameOver()
 
         if fruit.get_position() != self.head and not self.game_over:
-            tmp = self.body[-1]
             self.body.pop(0)
         elif not self.game_over:
-            fruit.spawn_fruit(self.body.copy())
+            blocked_tiles = self.body.copy()
+            blocked_tiles.append(self.head.copy())
+            fruit.spawn_fruit(blocked_tiles)
             self.score += 1
         else:
             return self.game_over
@@ -42,6 +43,8 @@ class snake:
         if self.head in self.body:
             self.game_over = True
         if self.head[0] > self.length-1 or self.head[0] < 0 or self.head[1] > self.width-1 or self.head[1] < 0:
+            self.game_over = True
+        if self.fruit.get_position() == [-1,-1]:
             self.game_over = True
 
     def get_position(self):

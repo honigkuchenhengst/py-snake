@@ -15,6 +15,7 @@ class board:
         for position in self.snake.body:
             board[position[0]][position[1]] = 1
         board[self.fruit.get_position()[0]][self.fruit.get_position()[1]] = 2
+        board[self.snake.head[0]][self.snake.head[1]] = 3
         return board
 
     def get_snake_head(self):
@@ -34,19 +35,19 @@ class board:
         n = 0
         for i in range(4):
             copies.append(self.copy())
-        if copies[n].snake.move("U",copies[n].fruit) == False:
+        if copies[n].snake.move("U",copies[n].fruit):
             copies.pop(n)
             n -= 1
         n += 1
-        if copies[n].snake.move("D",copies[n].fruit) == False:
+        if copies[n].snake.move("D",copies[n].fruit):
             copies.pop(n)
             n -= 1
         n += 1
-        if copies[n].snake.move("L",copies[n].fruit) == False:
+        if copies[n].snake.move("L",copies[n].fruit):
             copies.pop(n)
             n -= 1
         n += 1
-        if copies[n].snake.move("R",copies[n].fruit) == False:
+        if copies[n].snake.move("R",copies[n].fruit):
             copies.pop(n)
             n -= 1
         return copies

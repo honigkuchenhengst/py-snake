@@ -10,6 +10,7 @@ class snake:
         self.length = length
         self.width = width
         self.score = 0
+        self.way_length = 0
         self.fruit = fruit
         self.game_over = False
         self.closedlist = []
@@ -24,6 +25,7 @@ class snake:
         if direction == 'R':    #R == right
             self.head[1] += 1
 
+        self.way_length += 1
         self.gameOver()
 
         if fruit.get_position() != self.head and not self.game_over:
@@ -56,4 +58,5 @@ class snake:
         copy.head = self.head.copy()
         copy.body = self.body.copy()
         copy.game_over = self.game_over
+        copy.way_length = self.way_length
         return copy

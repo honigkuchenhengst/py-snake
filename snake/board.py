@@ -1,14 +1,19 @@
 from fruit import fruit
 from snake import snake
-
+from heuristik import distance_euklid, distance_manhattan
 
 class board:
 
-    def __init__(self, length, width):
+    def __init__(self, length, width, heuristic="M",fruit_factor = 1,snake_factor = 0):
         self.length = length
         self.width = width
         self.fruit = fruit(length, width)
         self.snake = snake(length, width, self.fruit)
+        if heuristic == "E":
+            self.heuristic = distance_euklid(self,fruit_factor,snake_factor)
+        elif heuristic == "M":
+            self.heuristic = distance_manhattan(self,fruit_factor,snake_factor)
+
 
     def return_board(self):
         board = [[0 for i in range(self.length)] for j in range(self.width)]
@@ -28,6 +33,7 @@ class board:
         copy = type(self)(self.length, self.width)
         copy.fruit = self.fruit.copy()
         copy.snake = self.snake.copy(copy.fruit)
+        copy.heuristic = self.heuristic.copy()
         return copy
 
     def expand_board(self):

@@ -1,7 +1,10 @@
-from board import board
+
 import scipy.spatial.distance as dist
 
 class distance_manhattan:
+
+    def copy(self):
+        return type(self)(self.board,self.fruit_factor,self.snake_factor)
     def __init__(self, board, fruit_factor, snake_factor):
         self.board = board
         self.fruit_factor = fruit_factor

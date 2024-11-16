@@ -1,3 +1,5 @@
+import time
+
 from board import board
 import pandas as pd
 from heuristik import *
@@ -10,6 +12,8 @@ scores = 0
 board = board(6, 6)
 
 # 50 Iterationen, um mehrere Spiele zu simulieren und Durchschnittswerte zu berechnen
+# Zeitmessung für BFS
+start_time_bfs = time.perf_counter()
 for i in range(50):
     # Boards, die noch nicht expandiert wurden
     openlist = []
@@ -45,10 +49,12 @@ for i in range(50):
                 openlist.append(succ)
 
     #höchster aktueller score
-    print(score)
+    #print(score)
     scores += score #zum Gesamtscore addieren
 
+end_time_bfs = time.perf_counter()
 print(scores / 50) #Durchschnitt score pro Simulation
+print(f"Laufzeit von BFS: {end_time_bfs - start_time_bfs:.4f} Sekunden")
 
 #0 -> leere Felder
 #1 -> Körper der Schlange

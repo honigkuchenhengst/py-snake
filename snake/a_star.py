@@ -1,3 +1,5 @@
+import time
+
 from board import board
 import pandas as pd
 import heapq
@@ -38,13 +40,17 @@ scores = 0 #Summe der erreichten Punktzahlen
 #Erstelle ein neues Spielfeld mit den gewünschten Parametern
 board = board(5, 5,"M",fruit_factor=1,snake_factor=0)
 
-#Führe x Simulationen aus
+#Führe x Simulationen aus & Zeitmessung
+start_time = time.perf_counter()  # Starte die Zeitmessung
 for i in range(50):
     print ("-----------------------------------------------------------------------------")
     tupel = astar_search(board)
     scores += tupel[0]
     way += tupel[1]
 
+end_time = time.perf_counter()  # Beende die Zeitmessung
+
 #Gib die durchschnittlichen Ergebnisse aus
 print(scores/50)
 print(way/50)
+print(f"Laufzeit von A*: {end_time - start_time:.4f} Sekunden")

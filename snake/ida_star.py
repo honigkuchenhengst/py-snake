@@ -1,3 +1,5 @@
+import time
+
 from board import board
 import pandas as pd
 import heapq
@@ -38,12 +40,17 @@ def idastar_search(board: board):
 way = 0
 scores = 0
 board = board(5, 5,"M",fruit_factor=1,snake_factor=1)
+
+#Führe x Simulationen aus & Zeitmessung
+start_time = time.perf_counter()  # Starte die Zeitmessung
 for i in range(50):
     print("-----------------------------------------------------------------------------")
     tupel = idastar_search(board)
     scores += tupel[0]
     way += tupel[1]
 
+end_time = time.perf_counter()  # Beende die Zeitmessung
 
 print(scores/50)
 print(way/50)
+print(f"Laufzeit von IDA*: {end_time - start_time:.4f} Sekunden")

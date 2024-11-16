@@ -57,3 +57,6 @@ class board:
             copies.pop(n)
             n -= 1
         return copies
+
+    def __lt__(self, other):
+        return self.heuristic.evaluate() + self.snake.way_length < other.heuristic.evaluate() + other.snake.way_length

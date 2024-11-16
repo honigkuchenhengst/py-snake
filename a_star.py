@@ -1,6 +1,6 @@
-#Quelle für Basis: https://www.youtube.com/watch?app=desktop&v=qWbqHKzVLIw
 
-import heapq #Gibt über .pop immer kleinstes Element zurpück
+
+import heapq
 
 class Node:
     def __init__(self, position, cost, heuristic):
@@ -15,13 +15,13 @@ class Node:
 
 def astar_search(graph, start, goal):
     open_set = []
-    closed_set = set() #keine Duplikate & einfaches Überprüfen von .contains?
+    closed_set = set()
 
     start_node = Node(start, 0, heuristic1(start, goal))
     heapq.heappush(open_set, start_node)
 
-    while open_set: #solange es unbesuchte Knoten im open_set gibt
-        current_node = heapq.heappop(open_set) #Knoten mit kleinstem f(n)
+    while open_set:
+        current_node = heapq.heappop(open_set)
 
         if current_node.position == goal:
             # Path found, reconstruct and return it

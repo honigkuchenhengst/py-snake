@@ -1,6 +1,9 @@
+#Quelle für Snake in Pygame Basis: https://www.geeksforgeeks.org/snake-game-in-python-using-pygame-module/
+#Quelle für A* Basis: https://www.youtube.com/watch?app=desktop&v=qWbqHKzVLIw
+
 import pygame
 import time
-import heapq
+import heapq #Gibt über .pop immer kleinstes Element zurück
 
 from board import Board
 from food import Food
@@ -47,17 +50,17 @@ def heuristic(node, goal):
 
 def astar_search(snake, food_position):
     open_set = []
-    closed_set = set()
+    closed_set = set() #keine Duplikate & einfaches Überprüfen von .contains?
     start = tuple(snake.snake_position)
     goal = tuple(food_position)
 
     start_node = Node(start, 0, heuristic(start, goal))
     heapq.heappush(open_set, start_node)
 
-    while open_set:
-        current_node = heapq.heappop(open_set)
+    while open_set: #solange es unbesuchte Knoten im open_set gibt
+        current_node = heapq.heappop(open_set) #Knoten mit kleinstem f(n)
         if current_node.position == goal:
-            # Path found, reconstruct path directions
+            # Path gefunden, rückwärts rekonstruieren
             path = []
             while current_node.parent:
                 dx = current_node.position[0] - current_node.parent.position[0]
@@ -71,14 +74,14 @@ def astar_search(snake, food_position):
                 elif dy == -10:
                     path.append('U')
                 current_node = current_node.parent
-            return path[::-1]  # Reverse path to start from snake's head
+            return path[::-1]  # Rückwärts von Kopf der Schlange
 
         closed_set.add(current_node.position)
 
         for dx, dy in [(-10, 0), (10, 0), (0, -10), (0, 10)]:
             neighbor_pos = (current_node.position[0] + dx, current_node.position[1] + dy)
 
-            # Check if the neighbor is within the screen bounds and not part of the snake's body
+            # Check ob Nachbar in screen ist, nicht bereits expandiert und nicht in body der Schlange
             if (0 <= neighbor_pos[0] < board.SCREEN_WIDTH and
                     0 <= neighbor_pos[1] < board.SCREEN_HEIGHT and
                     neighbor_pos not in closed_set and
@@ -95,7 +98,7 @@ def astar_search(snake, food_position):
 
                 heapq.heappush(open_set, new_node)
 
-    return None  # No path found
+    return None  # Kein Pfad gefunden
 
 
 def show_score(choice, color, font, size):

@@ -22,20 +22,20 @@ def astar_search(board: board):
             heapq.heappush(openlist, current_board)
 
         for succ in current_board.expand_board():
-            if not succ.snake.head.copy() in current_board.snake.closedlist:
+            if not succ.snake.head.copy() in succ.snake.closedlist:
                 heapq.heappush(openlist, succ)
 
     return (score, way)
 
 way = 0
 scores = 0
-board = board(5, 5,"M",fruit_factor=1,snake_factor=1)
-for i in range(5):
+board = board(5, 5,"M",fruit_factor=1,snake_factor=0)
+for i in range(50):
     print ("-----------------------------------------------------------------------------")
     tupel = astar_search(board)
     scores += tupel[0]
     way += tupel[1]
 
 
-print(scores/5)
-print(way/5)
+print(scores/50)
+print(way/50)

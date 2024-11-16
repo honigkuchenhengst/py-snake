@@ -59,4 +59,5 @@ class snake:
         copy.body = self.body.copy()
         copy.game_over = self.game_over
         copy.way_length = self.way_length
+        copy.closedlist = self.closedlist.copy()
         return copy

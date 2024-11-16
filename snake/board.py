@@ -60,3 +60,6 @@ class board:
 
     def __lt__(self, other):
         return self.heuristic.evaluate() + self.snake.way_length < other.heuristic.evaluate() + other.snake.way_length
+
+    def get_cost(self):
+        return self.heuristic.evaluate() + self.snake.way_length

@@ -36,6 +36,7 @@ def idastar_search(board: board):
 
         openlist.clear()
         openlist.append(board)
+        board.snake.closedlist.clear()
 
 way = 0
 scores = 0

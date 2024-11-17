@@ -12,9 +12,9 @@ class board:
         self.fruit = fruit(length, width)
         self.snake = snake(length, width, self.fruit)
         if heuristic == "E":
-            self.heuristic = distance_euklid(self,fruit_factor,snake_factor)
+            self.heuristic = distance_euklid(self,fruit_factor,snake_factor).evaluate()
         elif heuristic == "M":
-            self.heuristic = distance_manhattan(self,fruit_factor,snake_factor)
+            self.heuristic = distance_manhattan(self,fruit_factor,snake_factor).evaluate()
 
     #Gibt das Spielfeld als 2D-Liste zurück
     def return_board(self):
@@ -36,7 +36,7 @@ class board:
         copy = type(self)(self.length, self.width)
         copy.fruit = self.fruit.copy()
         copy.snake = self.snake.copy(copy.fruit)
-        copy.heuristic = self.heuristic.copy()
+        copy.heuristic = self.heuristic
         return copy
 
     #Generiert alle möglichen Nachfolgezustände durch Bewegung der Schlange
@@ -65,8 +65,8 @@ class board:
 
     #Vergleichsfunktion für die Priorität im A*-Algorithmus.
     def __lt__(self, other):
-        return self.heuristic.evaluate() + self.snake.way_length < other.heuristic.evaluate() + other.snake.way_length
+        return self.heuristic + self.snake.way_length < other.heuristic + other.snake.way_length
 
     #Die berechneten Kosten
     def get_cost(self):
-        return self.heuristic.evaluate() + self.snake.way_length
+        return self.heuristic + self.snake.way_length

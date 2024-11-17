@@ -1,12 +1,15 @@
 import random as rn
 
 class fruit:
+    #frucht wird auf position (0,0) initialisiert
     def __init__(self,length,width):
         self.length=length
         self.width=width
         self.position=[0,0]
 
 
+    #freies feld wird für frucht gefunden, wenn die schlange das ganze brett belegt, (-1,-1),
+    # zur kennzeichnung, dass das spiel vorbei ist
     def spawn_fruit(self, snake):
         empty_space = []
         for i in range(self.length):

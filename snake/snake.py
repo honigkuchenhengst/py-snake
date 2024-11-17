@@ -8,11 +8,14 @@ class snake:
         self.length = length
         self.width = width
         self.score = 0
-        self.way_length = 0
+        self.way_length = 0 #bisher zurückgelegter weg der Schlange
         self.fruit = fruit
         self.game_over = False
-        self.closedlist = []
+        self.closedlist = [] #in der aktuellen Runde besuchte Felder, Felder sollen auf der Wegsuche zu einer Frucht je nur 1 Mal besucht werden
 
+    #Bewegung der Schlange,
+    #wenn game_over True ist, wird True zurückgegeben -> führt zur nicht berücksichtigung beim expandieren
+    #wenn die Schlange eine Fruct isst, wird die Schlange länger und eine neue Frucht wird erzeugt
     def move(self, direction, fruit):
         if direction == 'U':    #U == up
             self.head[0] -= 1
@@ -39,6 +42,9 @@ class snake:
         self.body.append(self.head.copy())
 
         return self.game_over
+
+    #ermittelt, ob die Schlange in sich selbst bewegt wurde, in den Rand oder ob das Board voll ist
+    # gibt True zurück, falls einer dieser Fälle zutrifft
     def gameOver(self):
         if self.head in self.body:
             self.game_over = True

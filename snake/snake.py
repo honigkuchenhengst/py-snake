@@ -1,11 +1,9 @@
 from fruit import fruit
 class snake:
     def __init__(self, length, width, fruit):
-        self.head = [1,3]
+        self.head = [1,1]
         self.body = [
-            [1,1],
-            [1,2],
-            [1,3],
+            [1,1]
         ]
         self.length = length
         self.width = width

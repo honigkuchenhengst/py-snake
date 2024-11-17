@@ -12,7 +12,7 @@ class distance_manhattan:
 
     def evaluate(self):
         if self.board.snake.game_over:
-            return 9999
+            return 99999999
         snake_pos = self.board.get_snake_head()
         fruit_pos = self.board.get_fruit_position()
         fruit_distance = abs(snake_pos[0] - fruit_pos[0]) + abs(snake_pos[1] - fruit_pos[1])
@@ -25,6 +25,9 @@ class distance_manhattan:
 
 
 class distance_euklid:
+
+    def copy(self):
+        return type(self)(self.board,self.fruit_factor,self.snake_factor)
     def __init__(self, board, fruit_factor, snake_factor):
         self.board = board
         self.fruit_factor = fruit_factor
@@ -32,7 +35,7 @@ class distance_euklid:
 
     def evaluate(self):
         if self.board.snake.game_over:
-            return 9999
+            return 99999999
         snake_pos = self.board.get_snake_head()
         fruit_pos = self.board.get_fruit_position()
         fruit_distance = dist.euclidean(snake_pos, fruit_pos)

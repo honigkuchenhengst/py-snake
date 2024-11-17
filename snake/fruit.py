@@ -4,7 +4,7 @@ class fruit:
     def __init__(self,length,width):
         self.length=length
         self.width=width
-        self.position=[3,3]
+        self.position=[0,0]
 
 
     def spawn_fruit(self, snake):

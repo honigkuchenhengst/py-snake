@@ -55,7 +55,7 @@ for m in range(6):
         start_time = time.perf_counter()  # Starte die Zeitmessung
         for i in range(500):
             # print("-----------------------------------------------------------------------------")
-            tupel = idastar_search(board(5,5,"M",fruit_factor=m,snake_factor=n))
+            tupel = idastar_search(board(5,5,"M",fruit_factor=m * 0.1,snake_factor=n * 0.1))
             scores += tupel[0]
             way += tupel[1]
         end_time = time.perf_counter()
@@ -72,7 +72,7 @@ for m in range(6):
         start_time = time.perf_counter()  # Starte die Zeitmessung
         for i in range(500):
             # print("-----------------------------------------------------------------------------")
-            tupel = idastar_search(board(5,5,"E",fruit_factor=m,snake_factor=n))
+            tupel = idastar_search(board(5,5,"E",fruit_factor=m * 0.1,snake_factor=n * 0.1))
             scores += tupel[0]
             way += tupel[1]
         end_time = time.perf_counter()

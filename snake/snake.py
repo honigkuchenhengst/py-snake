@@ -15,7 +15,7 @@ class snake:
 
     #Bewegung der Schlange,
     #wenn game_over True ist, wird True zurückgegeben -> führt zur nicht berücksichtigung beim expandieren
-    #wenn die Schlange eine Fruct isst, wird die Schlange länger und eine neue Frucht wird erzeugt
+    #wenn die Schlange eine Frucht isst, wird die Schlange länger und eine neue Frucht wird erzeugt
     def move(self, direction, fruit):
         if direction == 'U':    #U == up
             self.head[0] -= 1

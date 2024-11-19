@@ -7,39 +7,52 @@ import heapq
 
 def idastar_search(board: board):
 
-    score = 0
-    way = 0
+    score = 0 # Variable, um den maximal erreichten Score zu speichern
+    way = 0 # Variable, um die Weglänge bis zum besten Score zu speichern
 
-    #expandiere ersten Knoten und speichere geringste Kosten eines Kindknotens in cheapest_child
+    #expandiere ersten Knoten und speichere geringste Kosten eines Kindknotens in lowest_cost
     openlist = []
     #closedlist = []
-    heapq.heappush(openlist, board)
+    heapq.heappush(openlist, board) # Füge das Startboard in die Prioritätswarteschlange ein
+    # Expandiere den ersten Knoten und finde die geringsten Kosten eines Kindknotens
     for succ in heapq.heappop(openlist).expand_board():
+        # Prüfe, ob der Nachfolger nicht bereits in der Closed-List (bereits besuchte Knoten) ist
         if not succ.snake.head.copy() in succ.snake.closedlist:
-            heapq.heappush(openlist, succ)
+            heapq.heappush(openlist, succ) # Füge den Nachfolger der Open-List hinzu
             #closedlist.append(succ.snake.head.copy())
-    lowest_cost = openlist[-1].get_cost()
+    lowest_cost = openlist[-1].get_cost() # Setze die geringsten Kosten als neuen Threshold
 
-
+    # Beginne die iterative Suche
     while True:
+        # Solange der Threshold nicht überschritten wird, expandiere Knoten
         while openlist[-1].get_cost() <= lowest_cost:
+            # Expandiere den Knoten mit den aktuell geringsten Kosten
             for succ in heapq.heappop(openlist).expand_board():
+                # Prüfe, ob der Nachfolger nicht in der Closed-List ist
                 if not succ.snake.head.copy() in succ.snake.closedlist:
-                    heapq.heappush(openlist, succ)
+                    heapq.heappush(openlist, succ) # Füge den Nachfolger zur Open-List hinzu
                     #closedlist.append(succ.snake.head.copy())
 
+                    # Aktualisiere den besten Score und Weglänge, falls ein besserer Zustand gefunden wurde
                     if(succ.snake.score > score):
                         score = succ.snake.score
                         way = succ.snake.way_length
-                        board = succ
+                        board = succ # Speichere den aktuellen besten Zustand als Ausgangspunkt
                         #print(pd.DataFrame(board.return_board()))
                         #print()
+            # Wenn keine weiteren Knoten expandiert werden können, beende die Suche
             if (len(openlist) == 0):
-                return (score, way)
-        lowest_cost = openlist[-1].get_cost()
+                return (score, way) # Rückgabe des maximalen Scores und der Weglänge
 
+        # Threshold überschritten: Setze einen neuen Threshold
+        lowest_cost = openlist[-1].get_cost() # Aktualisiere den Threshold auf die niedrigsten Kosten
+
+        # Leere die Open-List und beginne die Suche erneut mit dem besten bisher gefundenen Zustand
         openlist.clear()
-        openlist.append(board)
+        openlist.clear()
+        openlist.append(board) # Füge den zuletzt besten Zustand wieder ein
+
+        # Leere die Closed-List, um den nächsten Durchlauf nicht zu blockieren
         board.snake.closedlist.clear()
 
 

@@ -1,1 +1,0 @@
-print("Wilkommen bei Sssnake!")
